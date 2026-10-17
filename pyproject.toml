@@ -1,0 +1,107 @@
+[project]
+name = "spotter-fuel-route-planner"
+version = "1.0.0"
+description = "Django API that plans a US driving route with the cheapest fuel stops."
+requires-python = ">=3.13"
+
+[tool.ruff]
+line-length = 100
+target-version = 'py313'
+lint.task-tags = ["TODO"]
+extend-exclude = ["**/migrations/*", ".venv", "venv"]
+lint.select = [
+    "A",      # flake8-builtins
+    "B",      # flake8-bugbear
+    "C4",     # flake8-comprehensions
+    "C901",   # mccabe
+    "D",      # pydocstyle
+    "DJ",     # flake8-django
+    "E",      # pycodestyle
+    "EM",     # flake8-errmsg
+    "F",      # pyflakes
+    "I",      # isort
+    "ISC003", # flake8-implicit-str-concat
+    "PIE",    # flake8-pie
+    "PL",     # pylint
+    "RET",    # flake8-return
+    "RUF",    # Ruff-specific
+    "T20",    # flake8-print
+    "UP",     # pyupgrade
+    "S",      # flake8-bandit
+]
+
+lint.ignore = [
+    # Ignore missing docstring in __init__
+    "D107",
+
+    # Ignore due to formatting: https://docs.astral.sh/ruff/formatter/#conflicting-lint-rules
+    "E111",
+    "E114",
+    "E117",
+
+    # `import` should be at the top-level of a file
+    "PLC0415",
+    "PLR",
+
+    # RUF012 Mutable class attributes should be annotated with `typing.ClassVar`
+    "RUF012",
+
+    # Use of `assert` detected
+    "S101",
+
+    # Exception messages are user facing strings here.
+    "EM101",
+    "EM102",
+]
+
+[tool.ruff.lint.flake8-builtins]
+builtins-allowed-modules = ["types", "selectors"]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["D"]
+"**/tests/**.py" = ["D", "S311", "S105", "S106"]
+"scripts/*.*" = ["D", "T201"]
+"*/models.py" = ["A003"]
+"config/*.py" = ["E402", "F403", "F405"]
+"config/settings/*.py" = ["E402", "F403", "F405"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "pep257"
+
+[tool.ruff.lint.isort]
+known-first-party = ["spotter", "integrations", "config"]
+section-order = [
+    "future",
+    "standard-library",
+    "django",
+    "third-party",
+    "first-party",
+    "local-folder",
+]
+
+[tool.ruff.lint.isort.sections]
+# Group all Django imports into a separate section.
+"django" = ["django"]
+
+[tool.isort]
+profile = "black"
+line_length = 100
+atomic = true
+extend_skip_glob = ["*/migrations/*.py"]
+import_heading_stdlib = "Standard library imports"
+import_heading_django = "Django imports"
+import_heading_firstparty = "Spotter imports"
+import_heading_thirdparty = "Other third-party library imports"
+import_heading_localfolder = "Spotter local imports"
+known_django = "django"
+known_first_party = ["spotter", "integrations", "config"]
+sections = "FUTURE,STDLIB,DJANGO,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
+skip = ["scripts", ".venv", "venv"]
+
+[tool.coverage.run]
+source = ["spotter", "integrations"]
+omit = ["*/migrations/*", "*/tests/*"]
+
+[tool.coverage.report]
+skip_covered = true
+show_missing = true

@@ -1,0 +1,17 @@
+# Core
+Django~=6.1.2
+djangorestframework~=3.18
+drf-spectacular~=0.30
+drf-standardized-errors~=0.16
+django-environ~=0.14
+
+# Geo / maths
+numpy~=2.5
+scipy~=1.18
+
+# HTTP
+requests~=2.34
+
+# Server
+gunicorn~=26.2
+whitenoise~=6.12

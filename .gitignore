@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Tooling
+.coverage
+.coverage.*
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+
+# Django
+db.sqlite3
+db.sqlite3-journal
+staticfiles/
+config/settings/local.py
+
+# Env
+.env
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/
+
+# Local docs
+docs/project-walkthrough.pdf

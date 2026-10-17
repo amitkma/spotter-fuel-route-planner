@@ -1,0 +1,9 @@
+-c production.txt
+
+coverage
+django-stubs[compatible-mypy]
+djangorestframework-stubs
+types-requests
+pre-commit
+ruff
+isort

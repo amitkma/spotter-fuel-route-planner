@@ -1,0 +1,17 @@
+---
+services:
+  django:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:-change-me-in-production}
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS:-localhost,127.0.0.1}
+      REDIS_URL: redis://redis:6379/0
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:7-alpine

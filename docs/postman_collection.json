@@ -1,0 +1,241 @@
+{
+  "info": {
+    "name": "Spotter Fuel Route Planner",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Route + cheapest fuel stops between two US locations. Interactive map: {{baseUrl}}/trips/map/ · Swagger: {{baseUrl}}/api/docs/"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8000"
+    }
+  ],
+  "item": [
+    {
+      "name": "New York → Los Angeles",
+      "request": {
+        "method": "GET",
+        "description": "Coast to coast. First call makes 1 OSRM request (~1.5 s), repeat calls are cached (~50 ms).",
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/trips/plan/?start=New York, NY&finish=Los Angeles, CA",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "trips",
+            "plan",
+            ""
+          ],
+          "query": [
+            {
+              "key": "start",
+              "value": "New York, NY"
+            },
+            {
+              "key": "finish",
+              "value": "Los Angeles, CA"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Chicago → Houston (POST JSON)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"start\": \"Chicago, IL\",\n  \"finish\": \"Houston, TX\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/trips/plan/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "trips",
+            "plan",
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "name": "Seattle → Miami",
+      "request": {
+        "method": "GET",
+        "description": "",
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/trips/plan/?start=Seattle, WA&finish=Miami, FL",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "trips",
+            "plan",
+            ""
+          ],
+          "query": [
+            {
+              "key": "start",
+              "value": "Seattle, WA"
+            },
+            {
+              "key": "finish",
+              "value": "Miami, FL"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Coordinates input",
+      "request": {
+        "method": "GET",
+        "description": "Denver to Boston given as lat,lng.",
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/trips/plan/?start=39.7392,-104.9903&finish=42.3601,-71.0589",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "trips",
+            "plan",
+            ""
+          ],
+          "query": [
+            {
+              "key": "start",
+              "value": "39.7392,-104.9903"
+            },
+            {
+              "key": "finish",
+              "value": "42.3601,-71.0589"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Absolute cheapest (stop_penalty=0)",
+      "request": {
+        "method": "GET",
+        "description": "No per-stop penalty: the cheapest possible plan, with many more stops.",
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/trips/plan/?start=New York, NY&finish=Los Angeles, CA&stop_penalty=0",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "trips",
+            "plan",
+            ""
+          ],
+          "query": [
+            {
+              "key": "start",
+              "value": "New York, NY"
+            },
+            {
+              "key": "finish",
+              "value": "Los Angeles, CA"
+            },
+            {
+              "key": "stop_penalty",
+              "value": "0"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Error: outside the USA",
+      "request": {
+        "method": "GET",
+        "description": "",
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/trips/plan/?start=Toronto, ON&finish=Chicago, IL",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "trips",
+            "plan",
+            ""
+          ],
+          "query": [
+            {
+              "key": "start",
+              "value": "Toronto, ON"
+            },
+            {
+              "key": "finish",
+              "value": "Chicago, IL"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Error: missing finish",
+      "request": {
+        "method": "GET",
+        "description": "",
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/trips/plan/?start=Chicago, IL",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "trips",
+            "plan",
+            ""
+          ],
+          "query": [
+            {
+              "key": "start",
+              "value": "Chicago, IL"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Status",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/status/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "status",
+            ""
+          ]
+        }
+      }
+    }
+  ]
+}

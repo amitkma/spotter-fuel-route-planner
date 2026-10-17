@@ -1,0 +1,9 @@
+.venv
+.git
+**/__pycache__
+db.sqlite3
+htmlcov
+.coverage
+.mypy_cache
+.ruff_cache
+.env
